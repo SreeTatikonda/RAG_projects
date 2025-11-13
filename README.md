@@ -89,7 +89,47 @@ flowchart TD
     K --> L[Final Grounded Output<br>(Image-Aware + Text-Aware Answer)]
 
 
-
+## Explanation of Each Block
+1. Input Data (Images + Text Documents)
+The system begins with heterogeneous inputs. These may include photographs, scanned documents, diagrams, screenshots, or traditional text passages. The aim is to treat all content formats as searchable knowledge sources.
+2. Preprocessing
+Both images and text undergo standard preprocessing:
+Images: resizing, normalization
+Text: cleaning, optional chunking
+This ensures consistent and reliable embedding generation.
+3. Image Encoder (Vision Model)
+A vision transformer or CNN-based encoder converts each image into a fixed-dimensional embedding vector. This allows semantic comparison of visual content with text.
+4. Text Encoder (Embedding Model)
+A sentence-level or document-level text embedding model converts textual passages into numerical vectors. Both modalities now share a comparable embedding space.
+5. Unified Vector Database
+Image embeddings and text embeddings are stored together, along with metadata.
+This enables:
+unified semantic search across modalities,
+retrieval of the most relevant items regardless of type,
+consistent and scalable lookup.
+6. Query → Query Embedding
+The user’s query (in natural language) is embedded using the same text encoder.
+This places the query vector in the same semantic space as all stored embeddings.
+7. Similarity Search Across Modalities
+A nearest-neighbor search retrieves top-k items most similar to the query vector.
+Importantly, this search does not distinguish between images and text; relevance is determined solely by semantic distance.
+8. Retrieved Context
+The retrieved set may include:
+text paragraphs
+corresponding images
+mixed content
+This forms the evidence pool for reasoning.
+9. Multimodal Prompt Construction
+All retrieved items are packaged into a structured prompt containing:
+textual excerpts
+image descriptions or metadata
+query context
+This creates a unified reasoning context for the model.
+10. LLM Reasoning & Answer Generation
+The LLM synthesizes information from all retrieved modalities.
+This step transforms raw multimodal context into a coherent explanation or answer.
+11. Final Grounded Output
+The output represents a grounded response that integrates image understanding and textual knowledge retrieval. This reduces hallucination and improves factual coherence.
 
 ## 4. Step-by-Step Flow of the System
 
