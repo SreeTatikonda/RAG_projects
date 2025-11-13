@@ -66,6 +66,29 @@ The model receives:
 It then produces an answer that integrates information from both modalities.
 This demonstrates how grounding through retrieval improves accuracy and relevance.
 
+flowchart TD
+
+    A[Input Data<br>(Images + Text Documents)] --> B[Preprocessing<br>Normalization, Cleaning]
+    B --> C1[Image Encoder<br>(Vision Model)]
+    B --> C2[Text Encoder<br>(Embedding Model)]
+    
+    C1 --> D1[Image Embeddings]
+    C2 --> D2[Text Embeddings]
+
+    D1 --> E[Unified Vector Database]
+    D2 --> E[Unified Vector Database]
+
+    F[User Query] --> G[Query Embedding]
+    G --> H[Similarity Search<br>Across Image + Text Embeddings]
+
+    H --> I[Retrieved Context<br>(Top-K Relevant Items)]
+
+    I --> J[Multimodal Prompt Construction]
+    J --> K[LLM Reasoning & Answer Generation]
+
+    K --> L[Final Grounded Output<br>(Image-Aware + Text-Aware Answer)]
+
+
 
 
 ## 4. Step-by-Step Flow of the System
